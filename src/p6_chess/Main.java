@@ -15,46 +15,41 @@ public class Main {
 
         // Add rest of queens
         for (int i = 0; i < 7; i++) {
-            boolean placed = false;
-            int j = 0;
-            int k = 0;
+            // Check board for blank spot that has no queens in its row, column, and diagonals
+            outer: for (int j = 0; j < 8; j++) {
+                for (int k = 0; k < 8; k++) {
+                    if (!queens[j][k]) {
+                        boolean placeable = true;
 
-            while (!placed) {
-                boolean placeable = true;
-                for (int l = 0; l < 8; l++) {
-                    // Check for ones in row
-                    if (queens[j][l]) {
-                        placeable = false;
-                    }
-                    // Check for ones in column
-                    if (queens[l][k]) {
-                        placeable = false;
-                    }
-                    // Check for ones in main diagonal
-                    if (queens[l][l]) {
-                        placeable = false;
-                    }
-                    // Check for ones in secondary diagonal
-                    if (queens[l][7 - l]) {
-                        placeable = false;
-                    }
-                }
-                if (placeable) { // Check conditions here
-                    queens[j][k] = true;
-                    placed = true;
-                } else {
-                    k++;
-                    if (k >= 8) {
-                        k = 0;
-                        j++;
-                    }
-                    if (j >= 8) {
-                        System.out.println("ERROR");
+                        // Check if there are any queens in its row
+                        for (int l = 0; l < 8; l++) {
+                            if (queens[j][l]) {
+                                placeable = false;
+                                break;
+                            }
+                        }
+
+                        // Check if there are any queens in its column
+                        for (int l = 0; l < 8; l++) {
+                            if (queens[l][k]) {
+                                placeable = false;
+                                break;
+                            }
+                        }
+
+                        // Check for queens in the main diagonal
+                        // TODO
+
+                        // Check for queens in the secondary diagonal
+                        // TODO
+
+                        if (placeable) {
+                            queens[j][k] = true;
+                            break outer;
+                        }
                     }
                 }
             }
-            printChessBoard(queens);
-            System.out.println();
         }
 
         // Output result to user
@@ -62,10 +57,10 @@ public class Main {
     }
 
     private static void printChessBoard(boolean[][] board) {
-        for (int i = 0; i < board.length; i++) {
+        for (boolean[] booleans : board) {
             System.out.print("|");
-            for (int j = 0; j < board[i].length; j++) {
-                if (board[i][j]) {
+            for (boolean aBoolean : booleans) {
+                if (aBoolean) {
                     System.out.print("Q");
                 } else {
                     System.out.print(" ");
