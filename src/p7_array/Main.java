@@ -25,9 +25,6 @@ public class Main {
             // 4. Repeat this until we reach the final index.
             // This assumes n >= 2.
             zeroSum = new int[n];
-            /*for (int i = 0; i < n; i++) {
-                zeroSum[i] = rng.nextInt();
-            }*/
             zeroSum[0] = rng.nextInt(n^2);
             zeroSum[1] = -zeroSum[0];
 
@@ -40,6 +37,7 @@ public class Main {
                     for (int j = 0; j < i; j++) {
                         if (zeroSum[i] == zeroSum[j]) {
                             isDuplicate = true;
+                            break;
                         }
                     }
                 }
@@ -47,11 +45,11 @@ public class Main {
             }
 
             // Verify result
-            int total = 0;
+            /*int total = 0;
             for (int i : zeroSum) {
                 total += i;
             }
-            // System.out.println(total);
+            System.out.println(total);*/
         } else {
             zeroSum = new int[] {0};
         }
