@@ -20,7 +20,26 @@ public class Main {
             int k = 0;
 
             while (!placed) {
-                if (!queens[j][k]) {
+                boolean placeable = true;
+                for (int l = 0; l < 8; l++) {
+                    // Check for ones in row
+                    if (queens[j][l]) {
+                        placeable = false;
+                    }
+                    // Check for ones in column
+                    if (queens[l][k]) {
+                        placeable = false;
+                    }
+                    // Check for ones in main diagonal
+                    if (queens[l][l]) {
+                        placeable = false;
+                    }
+                    // Check for ones in secondary diagonal
+                    if (queens[l][7 - l]) {
+                        placeable = false;
+                    }
+                }
+                if (placeable) { // Check conditions here
                     queens[j][k] = true;
                     placed = true;
                 } else {
@@ -34,6 +53,8 @@ public class Main {
                     }
                 }
             }
+            printChessBoard(queens);
+            System.out.println();
         }
 
         // Output result to user
