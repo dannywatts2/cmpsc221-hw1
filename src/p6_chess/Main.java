@@ -38,10 +38,39 @@ public class Main {
                         }
 
                         // Check for queens in the main diagonal
-                        // TODO
+                        // 1. Determine places in diagonal above and below current element
+                        // 2. Iterate through those places, checking whether there is a queen
+                        int placesAbove = Math.min(j, k);
+                        int placesBelow = Math.min(7 - j, 7 - k);
+                        for (int l = 1; l <= placesAbove; l++) {
+                            if (queens[j - l][k - l]) {
+                                placeable = false;
+                                break;
+                            }
+                        }
+                        for (int l = 1; l <= placesBelow; l++) {
+                            if (queens[j + l][k + l]) {
+                                placeable = false;
+                                break;
+                            }
+                        }
 
                         // Check for queens in the secondary diagonal
-                        // TODO
+                        placesAbove = Math.min(j, 7 - k);
+                        placesBelow = Math.min(7 - j, k);
+                        // System.out.printf("j = %d, k = %d, placesAbove = %d, placesBelow = %d\n", j, k, placesAbove, placesBelow);
+                        for (int l = 1; l <= placesAbove; l++) {
+                            if (queens[j - l][k + l]) {
+                                placeable = false;
+                                break;
+                            }
+                        }
+                        for (int l = 1; l <= placesBelow; l++) {
+                            if (queens[j + l][k - l]) {
+                                placeable = false;
+                                break;
+                            }
+                        }
 
                         if (placeable) {
                             queens[j][k] = true;
