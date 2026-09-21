@@ -4,6 +4,17 @@ import java.util.Random;
 
 public class Main {
     static void main() {
+        // Repeatedly generate chess board until a valid one is generated
+        boolean[][] queens = createChessBoard();
+        while (numQueens(queens) != 8) {
+            queens = createChessBoard();
+        }
+
+        // Output result to user
+        printChessBoard(queens);
+    }
+
+    private static boolean[][] createChessBoard() {
         // Initialize RNG
         Random rng = new Random();
 
@@ -81,8 +92,21 @@ public class Main {
             }
         }
 
-        // Output result to user
-        printChessBoard(queens);
+        return queens;
+    }
+
+    private static int numQueens(boolean[][] board) {
+        int count = 0;
+
+        for (boolean[] row: board) {
+            for (boolean place: row) {
+                if (place) {
+                    count++;
+                }
+            }
+        }
+
+        return count;
     }
 
     private static void printChessBoard(boolean[][] board) {
