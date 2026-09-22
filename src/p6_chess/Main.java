@@ -26,8 +26,11 @@ public class Main {
 
         // Add rest of queens
         for (int i = 0; i < 7; i++) {
+            int validSpots = 0;
+            int chosenRow = -1;
+            int chosenColumn = -1;
             // Check board for blank spot that has no queens in its row, column, and diagonals
-            outer: for (int j = 0; j < 8; j++) {
+            for (int j = 0; j < 8; j++) {
                 for (int k = 0; k < 8; k++) {
                     if (!queens[j][k]) {
                         boolean placeable = true;
@@ -84,12 +87,20 @@ public class Main {
                         }
 
                         if (placeable) {
-                            queens[j][k] = true;
-                            break outer;
+                            // Give every valid spot an equal chance of being chosen.
+                            validSpots++;
+                            if (rng.nextInt(validSpots) == 0) {
+                                chosenRow = j;
+                                chosenColumn = k;
+                            }
                         }
                     }
                 }
             }
+            if (validSpots == 0) {
+                break;
+            }
+            queens[chosenRow][chosenColumn] = true;
         }
 
         return queens;
